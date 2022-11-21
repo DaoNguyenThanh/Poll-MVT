@@ -2,42 +2,4 @@ extends ../layout
 
 block content
   main
-    header
-      img(src="https://co-well.vn/wp-content/themes/cowell/assets/img/logo.jpg", alt="" width="420", height="180")
-      h1#title Form Khảo Sát
-      p#description Cảm Ơn Bạn Đã Tham Gia Tạo Form Khảo Sát
-    
-    form#survey-form(action='/polls' method='POST')
-    
-      .form-group
-        label#name-label(for='name') Tên cuộc khảo sát
-        input#name(type='text' name='poll_name' placeholder='Nhập tên cuộc khảo sát' required='')
-      
-      .form-group
-        label#email-label(for='Câu hỏi') Câu hỏi
-        input#email(type='text' name='question_name' placeholder='Nhập câu hỏi' required='')
-      
-      .form-group
-        label(for='question_type') Loại Câu Hỏi
-        select#dropdown(name='question_type')
-          option(value='1') Chọn 1 đáp án
-          option(value='2') Chọn nhiều đáp án
-          
-      .form-group
-        .options
-          label(for='answer_name') Lựa Chọn
-          br
-          input#many-options.form-control.m-input(type='text' required='' name='answer_name')
-          .row.mx-auto 
-            .col-lg-6.mt-3 
-              .all-btn
-                button#DeleteRow.btn.btn-danger.float-left(type='button' onclick='deleteRow(this)')
-                  i.bi.bi-trash
-                  | Delete
-            .col-lg-6.mt-3
-              .all-btn
-                button#rowAdder.btn.btn-dark.float-right(type='button' onclick='addRow()')
-                  span.bi.bi-plus-square-dotted
-                  |  ADD
-      .form-group
-        button#submit(type='submit-btn') Submit
+    | abc
