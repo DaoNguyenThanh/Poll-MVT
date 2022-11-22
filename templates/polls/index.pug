@@ -1,5 +1,22 @@
 extends ../layout
 
 block content
-  main
-    | abc
+  .container
+    .row
+      .col-lg-8.mx-lg-auto
+        h1.title-poll POLL LIST 
+        .poll-list
+          each poll in polls
+            fieldset  
+              .info 
+                legend Tên cuộc khảo sát: #{poll.name}
+                each val in poll.questions
+                  p Câu hỏi: #{val.name}
+                  if(val.type == 1)
+                    p Loại câu hỏi là: Chỉ chọn được một đáp án   
+                  else
+                    p Loại câu hỏi là: Chọn được nhiều đáp án
+                  each ans in val.answers
+                    li #{ans.name}
+              
+    a#btn-1(href ='/polls/new') Quay lại tạo form
