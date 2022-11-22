@@ -14,6 +14,7 @@ exports.index = async (req, res, next) => {
                     type: true, 
                     answers: {
                         select: {
+                            id: true,
                             name: true
                         }
                     }
@@ -43,6 +44,16 @@ exports.create = async (req, res, next) => {
                         },
                     }
                 }   
+        }
+    })
+    res.redirect('/polls');
+}
+
+exports.vote = async (req, res, next) => {
+    await models.Result.create({
+        data: {
+            answer_id: req.params.answer_id,
+            user_id: 1
         }
     })
     res.redirect('/polls');

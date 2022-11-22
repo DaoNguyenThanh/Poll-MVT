@@ -17,6 +17,10 @@ block content
                   else
                     p Loại câu hỏi là: Chọn được nhiều đáp án
                   each ans in val.answers
-                    li #{ans.name}
+                    li= ans.name
+                    li
+                      a(href=`/polls/${ans.id}/vote`)
+                        | Vote
+                    
               
     a#btn-1(href ='/polls/new') Quay lại tạo form
