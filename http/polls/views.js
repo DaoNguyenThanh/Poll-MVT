@@ -9,7 +9,8 @@ exports.index = async (req, res, next) => {
     const polls = await models.Poll.findMany({
         include: {
             questions:{   
-                select: { 
+                select: {
+                    id: true,
                     name:  true,
                     type: true, 
                     answers: {
@@ -23,6 +24,7 @@ exports.index = async (req, res, next) => {
         }
     })
     res.render('polls/index', { polls });
+    
 }
 //creating form
 exports.create = async (req, res, next) => {
@@ -51,15 +53,15 @@ exports.create = async (req, res, next) => {
 
 exports.vote = async (req, res, next) => {
 
-    const isResult = await models.Result.create({
+    await models.Result.create({
         data: {
-            create: {
-                answers_id: req.params.answer_id,
-                users_id: 1
-            }
+            answer_id: req.params.answer_id,
+            user_id: 1
         }
     })
-    res.render('polls/show', { isResult });
+    //res.render('polls/show', { isResult });
+
+    res.redirect('/polls');
 }
 
 exports.count = async (req, res, next) => {
@@ -74,6 +76,7 @@ exports.count = async (req, res, next) => {
             }
           }
     })
-    
     res.render('polls/index', {count_voting});
 }
+
+// {% comment %} a#vote-content(href=`/polls/${poll.id}/questions/${val.id}/answers/${ans.id}/vote`) {% endcomment %}

@@ -19,10 +19,13 @@ block content
                   each ans in val.answers
                     li= ans.name
                     .voting
-                      li.vote-btn
-                        a#vote-content(href=`/polls/${ans.id}/vote`)
-                          | Vote
+                      li.vote-btn 
+                        form(action=`/polls/${poll.id}/questions/${val.id}/answers/${ans.id}/vote` method='POST')
+                          button.vote-btn(type='submit')  
+                            | Vote
                       p.vote-count(name='') #{count_voting} 
                           | 0
                        
     a#btn-1(href ='/polls/new') Quay lại tạo form
+
+    
