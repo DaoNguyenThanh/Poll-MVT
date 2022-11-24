@@ -18,9 +18,11 @@ block content
                     p Loại câu hỏi là: Chọn được nhiều đáp án
                   each ans in val.answers
                     li= ans.name
-                    li
-                      a(href=`/polls/${ans.id}/vote`)
-                        | Vote
-                    
-              
+                    .voting
+                      li.vote-btn
+                        a#vote-content(href=`/polls/${ans.id}/vote`)
+                          | Vote
+                      p.vote-count(name='') #{count_voting} 
+                          | 0
+                       
     a#btn-1(href ='/polls/new') Quay lại tạo form

@@ -50,11 +50,30 @@ exports.create = async (req, res, next) => {
 }
 
 exports.vote = async (req, res, next) => {
-    await models.Result.create({
+
+    const isResult = await models.Result.create({
         data: {
-            answer_id: req.params.answer_id,
-            user_id: 1
+            create: {
+                answers_id: req.params.answer_id,
+                users_id: 1
+            }
         }
     })
-    res.redirect('/polls');
+    res.render('polls/show', { isResult });
+}
+
+exports.count = async (req, res, next) => {
+    
+    const count_voting = await models.Result.findMany({
+        include: {
+            _count: {
+              select: { 
+                user_id : true,
+                answer_id: true
+              }
+            }
+          }
+    })
+    
+    res.render('polls/index', {count_voting});
 }
