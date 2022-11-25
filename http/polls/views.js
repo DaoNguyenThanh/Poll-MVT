@@ -55,28 +55,55 @@ exports.vote = async (req, res, next) => {
 
     await models.Result.create({
         data: {
-            answer_id: req.params.answer_id,
-            user_id: 1
+            answer: req.body.answer_id,
+            user: 3
         }
     })
-    //res.render('polls/show', { isResult });
-
+    
+    await models.User.findUnique({
+        data: {
+            user: {
+                id: 3
+            }
+        }
+    })
+    // res.render('polls/index');
     res.redirect('/polls');
 }
 
-exports.count = async (req, res, next) => {
+// exports.count = async (req, res, next) => {
     
-    const count_voting = await models.Result.findMany({
-        include: {
-            _count: {
-              select: { 
-                user_id : true,
-                answer_id: true
-              }
-            }
-          }
-    })
-    res.render('polls/index', {count_voting});
-}
+//     const count_voting = await models.Result.findMany({
+//         include: {
+//             _count: {
+//               select: { 
+//                 user_id : true,
+//                 answer_id: true
+//               }
+//             }
+//         }
+//     })
+//     res.render('polls/index', {count_voting});
+// }
 
 // {% comment %} a#vote-content(href=`/polls/${poll.id}/questions/${val.id}/answers/${ans.id}/vote`) {% endcomment %}
+
+// data: {
+//     answer_id: req.body.answer_id,
+//     user_id: 3
+// }
+
+// questions: {
+//     create: {
+//         answers:{
+//             create: {
+//                 id: req.params.answers_id
+//             }
+//         }
+//     }
+// },
+// users: {
+//    create: {
+//       id: 1
+//    }
+// }

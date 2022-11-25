@@ -20,7 +20,8 @@ block content
                     li= ans.name
                     .voting
                       li.vote-btn 
-                        form(action=`/polls/${poll.id}/questions/${val.id}/answers/${ans.id}/vote` method='POST')
+                        form(action=`/polls/${poll.id}/vote` method='POST')
+                          input(type='hidden' name='answer_id' value=`${ans.id}`)
                           button.vote-btn(type='submit')  
                             | Vote
                       p.vote-count(name='') #{count_voting} 

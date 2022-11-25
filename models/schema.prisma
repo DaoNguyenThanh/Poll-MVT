@@ -11,10 +11,10 @@ datasource db {
 }
 
 model User {
-  id     Int      @id @default(autoincrement())
-  email  String   @db.VarChar(256)
-  polls  Poll[]
-  result Result[]
+  id      Int      @id @default(autoincrement())
+  email   String   @db.VarChar(256)
+  polls   Poll[]
+  results Result[]
 
   @@map("users")
 }
@@ -23,8 +23,8 @@ model Poll {
   id        Int        @id @default(autoincrement())
   name      String     @db.VarChar(256)
   questions Question[]
-  user      User?      @relation(fields: [userId], references: [id])
-  userId    Int?
+  user      User?      @relation(fields: [user_id], references: [id])
+  user_id   Int?
 
   @@map("polls")
 }
@@ -44,19 +44,19 @@ model Answer {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(256)
 
-  questions_id Int?
-  question     Question? @relation(fields: [questions_id], references: [id])
-  result       Result[]
+  question_id Int?
+  question    Question? @relation(fields: [question_id], references: [id])
+  results     Result[]
 
   @@map("answers")
 }
 
 model Result {
-  id         Int     @id @default(autoincrement())
-  users_id   Int?
-  users      User?   @relation(fields: [users_id], references: [id])
-  answers_id Int?
-  answers    Answer? @relation(fields: [answers_id], references: [id])
+  id        Int     @id @default(autoincrement())
+  user_id   Int?
+  user      User?   @relation(fields: [user_id], references: [id])
+  answer_id Int?
+  answer    Answer? @relation(fields: [answer_id], references: [id])
 
   @@map("results")
 }
