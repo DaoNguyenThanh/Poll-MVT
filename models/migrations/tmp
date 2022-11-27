@@ -16,6 +16,7 @@ model User {
   polls   Poll[]
 
   answers Result[]
+  Answer  Answer?     @relation(fields: [answer_id], references: [id])
   
   @@map("users")
 }
@@ -49,16 +50,18 @@ model Answer {
   question    Question? @relation(fields: [question_id], references: [id])
 
   users   Result[]
+  User    User?    @relation(fields: [user_id], references: [id])
+  user_id Int?
 
   @@map("answers")
 }
 
 model Result {
-  user      User    @relation(fields: [user_id], references: [id])
-  user_id   Int
-  answer    Answer  @relation(fields: [answer_id], references: [id])
-  answer_id Int
+  id        Int     @id @default(autoincrement())
+  user_id   Int?
+  user      User?   @relation(fields: [user_id], references: [id])
+  answer_id Int?
+  answer    Answer? @relation(fields: [answer_id], references: [id])
 
-  @@id([user_id, answer_id])
   @@map("results")
 }

@@ -53,24 +53,41 @@ exports.create = async (req, res, next) => {
 
 exports.vote = async (req, res, next) => {
 
-    await models.Result.create({
-        data: {
-            answer: req.body.answer_id,
-            user: 3
-        }
-    })
-    
-    await models.User.findUnique({
-        data: {
-            user: {
-                id: 3
-            }
-        }
-    })
-    // res.render('polls/index');
-    res.redirect('/polls');
+  // let result = models.Result.findUnique({
+  //   where: {
+  //     answer_id: Number(req.body.answer_id),
+  //     user_id: 1
+  //   }
+  // })
+  // if (!result)
+  //   await models.Result.create({
+  //     data: {
+  //       answer_id: Number(req.body.answer_id),
+  //       user_id: 1
+  //     }
+  //   })
+  await models.Result.upsert({
+    where: {
+      answer_id: Number(req.body.answer_id),
+      user_id: 1
+    },
+    update: {
+      answer_id: Number(req.body.answer_id),
+      user_id: 1
+    },
+    create: {
+      answer_id: Number(req.body.answer_id),
+      user_id: 1
+    }
+  })
+  
+  res.redirect('/polls');
 }
-
+// data: {
+//     user: {
+//         id: 3
+//     }
+// }
 // exports.count = async (req, res, next) => {
     
 //     const count_voting = await models.Result.findMany({
