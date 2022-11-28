@@ -24,8 +24,8 @@ block content
                           input(type='hidden' name='answer_id' value=`${ans.id}`)
                           button.vote-btn(type='submit' onclick=`${idAnswer}`) 
                             | Vote
-                      p.vote-count(name='') #{idAnswer}   
-                          | 0
+                      p.vote-count(name='') 
+                          = ans._count.users
                        
     a#btn-1(href ='/polls/new') Quay lại tạo form
 

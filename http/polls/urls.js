@@ -9,8 +9,6 @@ path.route('/new').get(views.new);
 
 path.route('/:poll_id/vote').post(views.vote);
 
-path.route('/:poll_id/vote').get(views.count);
-
 //path.route('/:poll_id/questions/:questions_id/answers/:answers_id/vote').post(views.vote);
 //path.route('/:answer_id/vote/:user_id').get(views.count);
 
