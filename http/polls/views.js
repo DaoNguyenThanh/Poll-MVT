@@ -68,59 +68,75 @@ exports.vote = async (req, res, next) => {
   //   })
   await models.Result.upsert({
     where: {
+      user_id_answer_id: {
+        answer_id: Number(req.body.answer_id),
+        user_id: 1
+      }
+    },
+    create: {
       answer_id: Number(req.body.answer_id),
       user_id: 1
     },
     update: {
-      answer_id: Number(req.body.answer_id),
-      user_id: 1
-    },
-    create: {
-      answer_id: Number(req.body.answer_id),
       user_id: 1
     }
   })
   
   res.redirect('/polls');
 }
-// data: {
-//     user: {
-//         id: 3
-//     }
-// }
-// exports.count = async (req, res, next) => {
+
+exports.count = async (req, res, next) => {
     
-//     const count_voting = await models.Result.findMany({
-//         include: {
-//             _count: {
-//               select: { 
-//                 user_id : true,
-//                 answer_id: true
-//               }
-//             }
-//         }
-//     })
-//     res.render('polls/index', {count_voting});
-// }
+    // const count_voting = await models.Result.findMany({
+    //     where: { slug },
+    //     include: {
+    //         _count: {
+    //           select: { 
+    //             user_id : true,
+    //             answer_id: true
+    //           }
+    //         }
+    //     }
+    // })
+    const idofanswer = await models.Answer.findUnique({
+        where: { slug },
+        include: {
+            users: {
+              include: {
+                results: {
+                  where: { Answer: { slug } },
+                }
+              }
+            }
+        }
+    })
 
-// {% comment %} a#vote-content(href=`/polls/${poll.id}/questions/${val.id}/answers/${ans.id}/vote`) {% endcomment %}
-
-// data: {
-//     answer_id: req.body.answer_id,
-//     user_id: 3
-// }
-
-// questions: {
-//     create: {
-//         answers:{
-//             create: {
-//                 id: req.params.answers_id
-//             }
-//         }
-//     }
-// },
-// users: {
-//    create: {
-//       id: 1
-//    }
-// }
+    const idAnswer = {
+        ...idofanswer,
+        results: idofanswer?.users.map(({ results, ...rest }) => ({
+            ...rest,
+            _count: { results: results.length },
+        })),
+    };
+    res.redirect('/polls', {idAnswer});
+  //   const _battle = await prisma.battle.findUnique({
+  //     where: { slug },
+  //     include: {
+  //         fighters: {
+  //             include: {
+  //                 votes: {
+  //                     where: { Battle: { slug } },
+  //                 },
+  //             },
+  //         },
+  //     },
+  // });
+  
+  // const battle = {
+  //     ..._battle,
+  //     fighters: _battle?.fighters.map(({ votes, ...rest }) => ({
+  //         ...rest,
+  //         _count: { votes: votes.length },
+  //     })),
+  // };
+}

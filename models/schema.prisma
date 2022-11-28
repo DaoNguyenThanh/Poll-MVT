@@ -11,12 +11,12 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @db.VarChar(256)
-  polls   Poll[]
+  id    Int    @id @default(autoincrement())
+  email String @db.VarChar(256)
+  polls Poll[]
 
   answers Result[]
-  
+
   @@map("users")
 }
 
@@ -48,15 +48,15 @@ model Answer {
   question_id Int?
   question    Question? @relation(fields: [question_id], references: [id])
 
-  users   Result[]
+  users Result[]
 
   @@map("answers")
 }
 
 model Result {
-  user      User    @relation(fields: [user_id], references: [id])
+  user      User   @relation(fields: [user_id], references: [id])
   user_id   Int
-  answer    Answer  @relation(fields: [answer_id], references: [id])
+  answer    Answer @relation(fields: [answer_id], references: [id])
   answer_id Int
 
   @@id([user_id, answer_id])

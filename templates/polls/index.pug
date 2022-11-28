@@ -22,9 +22,9 @@ block content
                       li.vote-btn 
                         form(action=`/polls/${poll.id}/vote` method='POST')
                           input(type='hidden' name='answer_id' value=`${ans.id}`)
-                          button.vote-btn(type='submit')  
+                          button.vote-btn(type='submit' onclick=`${idAnswer}`) 
                             | Vote
-                      p.vote-count(name='') #{count_voting} 
+                      p.vote-count(name='') #{idAnswer}   
                           | 0
                        
     a#btn-1(href ='/polls/new') Quay lại tạo form
