@@ -7,7 +7,7 @@ exports.new = async (req, res, next) => {
 exports.index = async (req, res, next) => {
     //Query lay danh sach cac cuoc khao sat
     const polls = await models.Poll.findMany({
-        select: {
+        include: {
             questions:{   
                 select: {
                     id: true,
@@ -90,3 +90,8 @@ exports.vote = async (req, res, next) => {
   res.redirect('/polls');
 }
 
+exports.signin = async (req, res, next) => {
+
+  res.render('polls/signin');
+
+}

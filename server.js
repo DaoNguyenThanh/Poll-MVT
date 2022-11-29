@@ -55,13 +55,3 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
 }
-
-// polls: {
-//   connect: {
-//     questions: { 
-//       answers: {
-//           create: req.body.answer_id
-//       },
-//     }   
-//   }
-// }
