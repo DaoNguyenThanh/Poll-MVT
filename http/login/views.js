@@ -1,7 +1,7 @@
 const models = require(require('path').resolve('./') + '/models');
  
-exports.auth = async (req, res, next) => {
-    res.render('auth/index');
+exports.login = async (req, res, next) => {
+    res.render('login/index');
   }
 
 exports.verify = async (req, res, next) => {
@@ -25,5 +25,4 @@ exports.verify = async (req, res, next) => {
         })
     }
   }
-  
 };
