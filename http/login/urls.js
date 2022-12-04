@@ -2,7 +2,7 @@ const express = require('express');
 const path = express.Router();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oidc');
-
+const gAuth = require('google-login-gsi');
 const views = require('./views');
 
 passport.use(new GoogleStrategy({
