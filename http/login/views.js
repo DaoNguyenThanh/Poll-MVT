@@ -7,13 +7,24 @@ exports.login = async (req, res, next) => {
 
 exports.verify = async (req, res, next) => {
   const token = req.body.token;
-  const ticket = await client.verifyIdToken({
-    idToken: token,
-    audience: process.env.GOOGLE_CLIENT_ID
-  });
-  const payload = ticket.getPayload();
-  const userid = payload['sub'];
-  
+  const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${token}`);
+  const gUser = await response.json();
+
+  if ("error" in gUser) {
+    return res.redirect('/login', { msg: "Đăng nhập thất bại" })
+
+  } else {
+    const user = await models.User.upsert({
+      where: {
+        email: gUser.email,
+      },
+      update: {},
+      create: {
+        email: gUser.email
+      },
+    });
+    console.log(user.id);
+  }
 };
 
 // exports.verify = async (req, res, next) => {

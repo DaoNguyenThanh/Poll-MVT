@@ -89,9 +89,3 @@ exports.vote = async (req, res, next) => {
   
   res.redirect('/polls');
 }
-
-exports.signin = async (req, res, next) => {
-
-  res.render('polls/signin');
-
-}

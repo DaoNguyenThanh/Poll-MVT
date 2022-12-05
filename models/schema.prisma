@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id    Int    @id @default(autoincrement())
-  email String @db.VarChar(256)
+  email String @db.VarChar(256) @unique
   polls Poll[]
 
   answers Result[]

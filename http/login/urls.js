@@ -23,6 +23,8 @@ path.route('/').get(views.login);
 
 path.route('/').post(views.verify);
 
+
+
 // path.route('/google').get(passport.authenticate('google'));
 
 module.exports = path;
