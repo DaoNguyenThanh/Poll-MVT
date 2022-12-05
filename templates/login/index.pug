@@ -2,7 +2,6 @@ extends ../layout
 
 block content
     #container.container
-        
         .form-container.sign-in-container
             form.frm-sign(action='#')
                 h1.title-sign Sign in
@@ -39,7 +38,9 @@ block content
                 client_id: '914176792303-u3clb1ifv24n369jots7ko0lnmjbrh2g.apps.googleusercontent.com',
                 scope: "profile email"
             });
-        console.log(response);
+            console.log(response.access_token);
+            //- TBD: Gửi token lên controller với body chứa token
+            
         };
         const isLoggedIn = await gAuth.isLoggedIn(); // Return boolean
         console.log("ok " + isLoggedIn);
@@ -47,9 +48,10 @@ block content
         const user = await gAuth.getUserInfo(); // Return an object
         console.log(user);
 
-        document.getElementById("logout").onclick = async (e)=>{
+          document.getElementById("logout").onclick = async (e)=>{
             e.preventDefault();
             await gAuth.signOut();
         };
-            
+          
+        
         

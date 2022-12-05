@@ -9,8 +9,8 @@ path.use('/', homeRouter);
 path.use('/polls', pollRouter);
 path.use('/login', loginRouter);
 
-path.route('/oauth2/redirect/google').get(async (req, res, next) => {
-  console.log("A");
-});
+// path.route('/oauth2/redirect/google').get(async (req, res, next) => {
+//   console.log("A");
+// });
 
 module.exports = path;
