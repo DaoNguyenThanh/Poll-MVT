@@ -20,8 +20,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../assets')));
 // app.use(cors());
 
-urls.urlpatterns(app)
-
 
 app.use(session({
   secret: '_poll_web_app',
@@ -29,6 +27,14 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: true }
 }))
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: true }
+// }))
+
+urls.urlpatterns(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

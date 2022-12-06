@@ -22,7 +22,7 @@
     "google-login-gsi": "^1.0.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "node-persist": "^0.0.8",
     "passport": "^0.6.0",
     "passport-google": "^0.3.0",

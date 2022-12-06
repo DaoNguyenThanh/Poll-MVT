@@ -12,7 +12,7 @@ exports.verify = async (req, res, next) => {
   const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${token}`);
   const gUser = await response.json();
   if ("error" in gUser) {
-    return res.redirect('/login', { msg: "Đăng nhập thất bại" })
+    return res.render('login/index' ,{ msg: "Đăng nhập thất bại" })
   } else {
     const user = await models.User.upsert({
       where: {
@@ -23,14 +23,20 @@ exports.verify = async (req, res, next) => {
         email: gUser.email
       },
     });
-    console.log(user.id);
-    const userId = user.id;
-    const sessions = await findSessions({ user: userId, valid: true });
-    
-    return res.redirect('/polls/new', {sessions})
-    
-  }
+    req.session.regenerate(function (err) {
+      if (err) next(err)
   
+      // store user information in session, typically a user id
+      req.session.user = user.id;
+  
+      // save the session before redirection to ensure page
+      // load does not happen before session is saved
+      req.session.save(function (err) {
+        if (err) return next(err)
+        res.redirect('/polls')
+      })
+    })
+  }  
 };
 
 // exports.verify = async (req, res, next) => {
