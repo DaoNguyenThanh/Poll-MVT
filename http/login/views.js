@@ -1,4 +1,6 @@
 const models = require(require('path').resolve('./') + '/models');
+const fetch = require('node-fetch');
+const session = require('express-session');
 require('dotenv').config();
 
 exports.login = async (req, res, next) => {
@@ -9,10 +11,8 @@ exports.verify = async (req, res, next) => {
   const token = req.body.token;
   const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${token}`);
   const gUser = await response.json();
-
   if ("error" in gUser) {
     return res.redirect('/login', { msg: "Đăng nhập thất bại" })
-
   } else {
     const user = await models.User.upsert({
       where: {
@@ -24,7 +24,13 @@ exports.verify = async (req, res, next) => {
       },
     });
     console.log(user.id);
+    const userId = user.id;
+    const sessions = await findSessions({ user: userId, valid: true });
+    
+    return res.redirect('/polls/new', {sessions})
+    
   }
+  
 };
 
 // exports.verify = async (req, res, next) => {
