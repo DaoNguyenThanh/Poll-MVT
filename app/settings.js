@@ -20,12 +20,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../assets')));
 // app.use(cors());
 
-
 app.use(session({
   secret: '_poll_web_app',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { 
+    secure: true
+   }
 }))
 // app.use(session({
 //   secret: 'keyboard cat',
