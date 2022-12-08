@@ -1,5 +1,5 @@
 const models = require(require('path').resolve('./') + '/models');
- 
+const session = require('express-session');
 exports.new = async (req, res, next) => {
     res.render('polls/new');
 }
@@ -89,3 +89,20 @@ exports.vote = async (req, res, next) => {
   
   res.redirect('/polls');
 }
+// middleware to test if authenticated
+function isAuthenticated (req, res, next) {
+    if (req.session.user) next()
+    else next('route')
+  }
+
+exports.userdetails = async (req, res, next) => {
+
+    const user_infor = await models.User.findUnique({
+        where: {
+          id: req.body.user
+        }
+      })
+    console.log(user_infor);
+
+    res.render('polls/index', { user_infor });
+}    

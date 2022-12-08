@@ -16,7 +16,7 @@ exports.verify = async (req, res, next) => {
   } else {
     const user = await models.User.upsert({
       where: {
-        email: gUser.email,
+        email: gUser.email
       },
       update: {},
       create: {
@@ -28,7 +28,6 @@ exports.verify = async (req, res, next) => {
   
       // store user information in session, typically a user id
       req.session.user = user.id;
-  
       // save the session before redirection to ensure page
       // load does not happen before session is saved
       req.session.save(function (err) {
@@ -37,6 +36,24 @@ exports.verify = async (req, res, next) => {
       })
     })
   }  
+};
+exports.logout = async (req, res, next) => {
+  // logout logic
+
+  // clear the user from the session object and save.
+  // this will ensure that re-using the old session id
+  // does not have a logged in user
+  req.session.user = null
+  req.session.save(function (err) {
+    if (err) next(err)
+
+    // regenerate the session, which is good practice to help
+    // guard against forms of session fixation
+    req.session.regenerate(function (err) {
+      if (err) next(err)
+      res.redirect('/login')
+    })
+  })
 };
 
 // exports.verify = async (req, res, next) => {

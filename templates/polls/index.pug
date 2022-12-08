@@ -4,7 +4,9 @@ block content
   .container
     .row
       .col-lg-8.mx-lg-auto
-        h1.title-poll POLL LIST 
+        h1.title-poll POLL LIST
+        h1 User: 
+          = user_infor
         .poll-list
           each poll in polls
             fieldset  
@@ -26,8 +28,9 @@ block content
                             | Vote
                       p.vote-count(name='') 
                           = ans._count.users
-                       
-    a#btn-1(href ='/polls/new') Quay lại tạo form
+    .cover-btn                   
+      a#btn-1(href ='/polls/new') Create new poll
+      a#logout-btn(href ='/login') Log out
 
 
 

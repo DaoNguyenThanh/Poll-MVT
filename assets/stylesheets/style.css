@@ -315,7 +315,6 @@ fieldset legend{
 }
 
 #btn-1 {
-  display: block;
   width: 200px;
   height: 50px;
   background: #4E9CAF;
@@ -587,4 +586,18 @@ footer {
   width: 120px;
   height: 120px;
   border-radius:50% ;
+}
+
+#logout-btn {
+  width: 200px;
+  height: 50px;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  line-height: 25px;
+  text-decoration: none;
+  float: left;
 }
