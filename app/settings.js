@@ -22,12 +22,18 @@ app.use(express.static(path.join(__dirname, '../assets')));
 
 app.use(session({
   secret: '_poll_web_app',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { 
-    secure: true
-   }
+  resave: false,
+  saveUninitialized: true
 }))
+// app.use(session({
+//   secret: '_poll_web_app',
+//   resave: true,
+//   saveUninitialized: true,
+//   cookie: { 
+//     secure: true
+//    }
+// }))
+
 // app.use(session({
 //   secret: 'keyboard cat',
 //   resave: false,

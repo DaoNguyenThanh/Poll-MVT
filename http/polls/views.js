@@ -5,6 +5,9 @@ exports.new = async (req, res, next) => {
 }
 
 exports.index = async (req, res, next) => {
+    // console.log(req.session?.user)
+    //console.log(req.session.user);
+    const user_infor = req.session.user;
     //Query lay danh sach cac cuoc khao sat
     const polls = await models.Poll.findMany({
         include: {
@@ -28,7 +31,8 @@ exports.index = async (req, res, next) => {
             }
         }
     })
-    res.render('polls/index', { polls });
+    // console.log(req.session);
+    res.render('polls/index', { polls, user_infor });
     
 }
 //creating form
@@ -95,14 +99,15 @@ function isAuthenticated (req, res, next) {
     else next('route')
   }
 
-exports.userdetails = async (req, res, next) => {
+// exports.userdetails = async (req, res, next) => {
+//     console.log(req.session.user);
+    
+//     // const user_infor = await models.User.findUnique({
+//     //     where: {
+//     //       id: req.session.user
+//     //     }
+//     //   })
+//     // console.log(user_infor);
 
-    const user_infor = await models.User.findUnique({
-        where: {
-          id: req.body.user
-        }
-      })
-    console.log(user_infor);
-
-    res.render('polls/index', { user_infor });
-}    
+//     res.redirect('/polls');
+// }    
