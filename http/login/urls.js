@@ -25,8 +25,7 @@ path.route('/').get(views.login);
 
 path.route('/').post(views.verify);
 
-path.route('/logout').post(views.logout);
-
+path.route('/logout').get(views.logout);
 
 // path.route('/google').get(passport.authenticate('google'));
 

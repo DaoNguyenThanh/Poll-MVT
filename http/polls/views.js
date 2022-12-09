@@ -5,7 +5,6 @@ exports.new = async (req, res, next) => {
 }
 
 exports.index = async (req, res, next) => {
-    // console.log(req.session?.user)
     //console.log(req.session.user);
     const user_infor = req.session.user;
     //Query lay danh sach cac cuoc khao sat
@@ -32,6 +31,8 @@ exports.index = async (req, res, next) => {
         }
     })
     // console.log(req.session);
+    //console.log(JSON.stringify(polls));
+
     res.render('polls/index', { polls, user_infor });
     
 }
@@ -79,25 +80,20 @@ exports.vote = async (req, res, next) => {
     where: {
       user_id_answer_id: {
         answer_id: Number(req.body.answer_id),
-        user_id: 1
+        user_id: req.session.user
       }
     },
     create: {
       answer_id: Number(req.body.answer_id),
-      user_id: 1
+      user_id: req.session.user
     },
     update: {
-      user_id: 1
+      user_id: req.session.user
     }
   })
   
   res.redirect('/polls');
 }
-// middleware to test if authenticated
-function isAuthenticated (req, res, next) {
-    if (req.session.user) next()
-    else next('route')
-  }
 
 // exports.userdetails = async (req, res, next) => {
 //     console.log(req.session.user);

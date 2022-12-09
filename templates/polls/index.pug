@@ -18,19 +18,30 @@ block content
                   else
                     p Loại câu hỏi là: Chọn được nhiều đáp án
                   each ans in val.answers
-                    li= ans.name
-                    .voting
-                      li.vote-btn 
-                        form(action=`/polls/${poll.id}/vote` method='POST')
-                          input(type='hidden' name='answer_id' value=`${ans.id}`)
-                          button.vote-btn(type='submit' onclick=`${idAnswer}`) 
-                            | Vote
-                      p.vote-count(name='') 
-                          = ans._count.users
+                    div
+                      li= ans.name
+                      .voting
+                        li.vote-btn 
+                          form(action=`/polls/${poll.id}/vote` method='POST')
+                            input(type='hidden' name='answer_id' value=`${ans.id}`)
+                            button.vote-btn(type='submit' onclick=`${idAnswer}`) 
+                              | Vote
+                        p.vote-count(name='') 
+                            = ans._count.users
     .cover-btn                   
       a#btn-1(href ='/polls/new') Create new poll
-      a#logout-btn(href ='/login') Log out
+      a#logout-btn(href ='/login/logout') Logout
 
+  script. 
+    //- console.log(#{poll});
+      //- button#logout-btn Logout
+  
+      //- script(defer type='module').
+      //-   import * as gAuth from '/javascripts/google-login-gsi.js';
+      //-   document.getElementById("#logout-btn").onclick = async (e)=>{
+      //-       e.preventDefault();	            
+      //-       await gAuth.signOut();	           
+      //-   };
 
 
     

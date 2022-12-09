@@ -7,8 +7,9 @@ const gAuth = require('google-login-gsi');
 const {OAuth2Client} = require('google-auth-library');
 const storage = require('node-persist');
 const views = require('./views');
+const { isAuthenticated } = require('../../permissions');
 
-path.route('/').get(views.index)
+path.route('/').get(isAuthenticated, views.index)
                .post(views.create);
 path.route('/new').get(views.new);
 

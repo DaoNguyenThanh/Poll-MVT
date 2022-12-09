@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Hello",
+    "user_id": null,
+    "questions": [
+      {
+        "id": 1,
+        "name": "Dao la ai",
+        "type": "2",
+        "votes": [
+          { "id": 1, "name": "ko biet", "users": [{}, {}, {}] },
+          { "id": 2, "name": "biet", "users": [{}, {}, {}] }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Hello",
+    "user_id": null,
+    "questions": [
+      {
+        "id": 1,
+        "name": "Dao la ai",
+        "type": "2",
+        "answers": [
+          { "id": 1, "name": "ko biet", "_count": { "users": 3 } },
+          { "id": 2, "name": "biet", "_count": { "users": 2 } }
+        ]
+      }
+    ]
+  }
+]
