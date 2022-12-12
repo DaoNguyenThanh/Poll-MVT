@@ -95,15 +95,8 @@ exports.vote = async (req, res, next) => {
   res.redirect('/polls');
 }
 
-// exports.userdetails = async (req, res, next) => {
-//     console.log(req.session.user);
-    
-//     // const user_infor = await models.User.findUnique({
-//     //     where: {
-//     //       id: req.session.user
-//     //     }
-//     //   })
-//     // console.log(user_infor);
+// exports.username = async (req, res, next) => {
+
 
 //     res.redirect('/polls');
 // }    
