@@ -1,5 +1,7 @@
 const models = require(require('path').resolve('./') + '/models');
 const session = require('express-session');
+const { WebClient, ErrorCode } = require('@slack/web-api');
+
 exports.new = async (req, res, next) => {
     res.render('polls/new');
 }
@@ -95,8 +97,28 @@ exports.vote = async (req, res, next) => {
   res.redirect('/polls');
 }
 
-// exports.username = async (req, res, next) => {
+exports.username = async (req, res, next) => {
+  // Read a token from the environment variables
+  const token = process.env.SLACK_TOKEN;
+  // Initialize
+  const web = new WebClient(token);
+  try {
+  // Call the users.info method using the WebClient
+  const result = await web.users.info({
+    user: req.body.user
+  });
 
-
-//     res.redirect('/polls');
-// }    
+   console.log(result);
+  }
+  catch (error) {
+   // Check the code property, and when its a PlatformError, log the whole response.
+   if (error.code === ErrorCode.PlatformError) {
+    console.log(error.data);
+  } else {
+    // Some other error, oh no!
+    console.log('Well, that was unexpected.');
+    }
+  }
+  
+  res.redirect('/polls');
+}    
