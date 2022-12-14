@@ -34,8 +34,37 @@ exports.index = async (req, res, next) => {
     })
     // console.log(req.session);
     //console.log(JSON.stringify(polls));
+    const token = process.env.SLACK_TOKEN;
 
-    res.render('polls/index', { polls, user_infor });
+    const options = {};
+    
+    // In a testing environment, configure the client to send requests to a mock server
+    if (process.env.NODE_ENV === 'test') {
+      options.slackApiUrl = 'http://localhost:8000/api/';
+    }
+    
+    // Initialize a client using the configuration
+    const web = new WebClient(token, options);
+    
+    try {
+    // Call the users.info method using the WebClient
+    const user_name = await web.client.users.info({
+      user: req.body.user
+    });
+  
+     console.log(user_name);
+    }
+    catch (error) {
+     // Check the code property, and when its a PlatformError, log the whole response.
+     if (error.code === ErrorCode.PlatformError) {
+      console.log(error.data);
+    } else {
+      // Some other error, oh no!
+      console.log('Well, that was unexpected.');
+      }
+    }
+
+    res.render('polls/index', { polls, user_infor, user_name });
     
 }
 //creating form
@@ -97,28 +126,8 @@ exports.vote = async (req, res, next) => {
   res.redirect('/polls');
 }
 
-exports.username = async (req, res, next) => {
-  // Read a token from the environment variables
-  const token = process.env.SLACK_TOKEN;
-  // Initialize
-  const web = new WebClient(token);
-  try {
-  // Call the users.info method using the WebClient
-  const result = await web.users.info({
-    user: req.body.user
-  });
+// exports.username = async (req, res, next) => {
 
-   console.log(result);
-  }
-  catch (error) {
-   // Check the code property, and when its a PlatformError, log the whole response.
-   if (error.code === ErrorCode.PlatformError) {
-    console.log(error.data);
-  } else {
-    // Some other error, oh no!
-    console.log('Well, that was unexpected.');
-    }
-  }
   
-  res.redirect('/polls');
-}    
+//   res.redirect('/polls');
+// }    
