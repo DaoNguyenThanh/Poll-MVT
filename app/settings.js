@@ -8,7 +8,7 @@ const urls = require('./urls');
 const { WebClient, ErrorCode } = require('@slack/web-api');
 // const cors = require('cors');
 const app = express();
-
+  
 // view engine setup
 app.set('views', path.join(__dirname, '../templates'));
 app.set('view engine', 'pug');

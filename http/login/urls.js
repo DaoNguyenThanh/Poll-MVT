@@ -27,6 +27,7 @@ path.route('/').post(views.verify);
 
 path.route('/logout').get(views.logout);
 
+path.route('/:user_id').post(views.username);
 // path.route('/google').get(passport.authenticate('google'));
 
 module.exports = path;

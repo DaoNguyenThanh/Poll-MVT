@@ -80,3 +80,42 @@ exports.logout = async (req, res, next) => {
 //     }
 //   }
 // };
+
+exports.username = async (req, res, next) => {
+
+  // Read a token from the environment variables
+  const token = process.env.SLACK_TOKEN;
+
+  // Initialize
+  const web = new WebClient(token);
+  // You probably want to use a database to store any user information.
+  let usersStore = {};
+
+  try {
+    // Call the users.list method using the WebClient
+    const user_name = await web.client.users.list();
+    console.log(user_name);
+    saveUsers(user_name.members);
+  }
+  catch (error) {
+    // Check the code property, and when its a PlatformError, log the whole response.
+    if (error.code === ErrorCode.PlatformError) {
+      console.log(error.data);
+    } else {
+      // Some other error, oh no!
+      console.log('Well, that was unexpected.');
+    }
+  }
+  // Put users into the JavaScript object
+  function saveUsers(usersArray) {
+    let userId = '';
+    usersArray.forEach(function(user){
+      // Key user info on their unique user ID
+      userId = user["id"];
+      
+      // Store the entire user object (you may not need all of the info)
+      usersStore[userId] = user;
+    });
+  }
+  res.redirect('/polls');
+}  

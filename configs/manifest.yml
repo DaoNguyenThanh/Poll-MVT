@@ -17,9 +17,12 @@ features:
       description: Create a new poll
 oauth_config:
   scopes:
-    user:
+     user:
+      - email
+      - identity.email
       - search:read
       - users:read
+      - users:read.email
     bot:
       - channels:history
       - channels:join
@@ -29,6 +32,7 @@ oauth_config:
       - im:history
       - users.profile:read
       - users:read
+      - users:read.email
 settings:
   event_subscriptions:
     request_url: https://c723-118-69-73-136.ap.ngrok.io/slack-bot/slack/events
