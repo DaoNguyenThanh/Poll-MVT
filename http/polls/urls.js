@@ -8,7 +8,7 @@ const {OAuth2Client} = require('google-auth-library');
 const storage = require('node-persist');
 const views = require('./views');
 const { isAuthenticated } = require('../../permissions');
-const { WebClient } = require('@slack/web-api');
+const { WebClient, ErrorCode } = require('@slack/web-api');
 
 path.route('/').get(isAuthenticated, views.index)
                .post(views.create);

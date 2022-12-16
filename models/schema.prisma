@@ -11,11 +11,13 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  email String @unique @db.VarChar(256)
-  polls Poll[]
-
-  answers Result[]
+  id       Int      @id @default(autoincrement())
+  email    String   @unique @db.VarChar(256)
+  avatar   String   @db.VarChar(1024)
+  name     String   @db.VarChar(256)
+  slack_id String   @db.VarChar(256)
+  polls    Poll[]
+  answers  Result[]
 
   @@map("users")
 }

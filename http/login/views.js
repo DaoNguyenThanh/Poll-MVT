@@ -1,6 +1,7 @@
 const models = require(require('path').resolve('./') + '/models');
 const fetch = require('node-fetch');
 const session = require('express-session');
+const { WebClient, ErrorCode } = require('@slack/web-api');
 require('dotenv').config();
 
 exports.login = async (req, res, next) => {
@@ -14,14 +15,55 @@ exports.verify = async (req, res, next) => {
   if ("error" in gUser) {
     return res.render('login/index' ,{ msg: "Đăng nhập thất bại" })
   } else {
+    // Email: gUser.email
+    let currentUser = {
+      email: gUser.email
+    };
+
+    // Call API to get userinfo
+    const web = new WebClient(process.env.SLACK_TOKEN);
+    try {
+      // Call the users.list method using the WebClient
+      const listOfUsers = await web.users.list();
+      const dataUser = listOfUsers.find(userItem => { userItem.profile?.email === gUser.email })
+      console.log(dataUser);
+      
+      currentUser.avatar = dataUser?.profile.image_192;
+      currentUser.name = dataUser?.real_name;
+      currentUser.slack_id = dataUser?.id;
+
+      // const dataUser = save_listOfUsers.find(userItem => { userItem.profile.email === gUser.email })
+      // console.log(dataUser);
+      
+      // currentUser.avatar = dataUser?.profile.image_192;
+      // currentUser.name = dataUser?.real_name;
+      // currentUser.slack_id = dataUser?.id;
+    }
+    catch (error) {
+      console.error(error);
+    }
+    
+    // Put users into the JavaScript object
+    function saveUsers(usersArray) {
+      let userId = '';
+      usersArray.forEach(function(user){
+        // Key user info on their unique user ID
+        userId = user["id"];
+        
+        // Store the entire user object (you may not need all of the info)
+        usersStore[userId] = user;
+      });
+    }
+
     const user = await models.User.upsert({
       where: {
         email: gUser.email
       },
-      update: {},
-      create: {
-        email: gUser.email
+      update: {
+        avatar: currentUser.avatar,
+        name: currentUser.name
       },
+      create: currentUser,
     });
     req.session.regenerate(function (err) {
       if (err) next(err)
@@ -39,7 +81,7 @@ exports.verify = async (req, res, next) => {
 };
 
 exports.logout = async (req, res, next) => {
-  // logout logic
+  // Logout logic
   // clear the user from the session object and save.
   // this will ensure that re-using the old session id
   // does not have a logged in user
@@ -58,64 +100,3 @@ exports.logout = async (req, res, next) => {
     })
   })
 };
-// exports.verify = async (req, res, next) => {
-//  (profile, done) => {
-
-//     // Check if google profile exist.
-//     if (profile.id) {
-
-//       User.findOne({googleId: profile.id})
-//         .then((existingUser) => {
-//           if (existingUser) {
-//             done(null, existingUser);
-//           } else {
-//             new User({
-//               googleId: profile.id,
-//               email: profile.emails[0].value
-//             })
-//               .save()
-//               .then(user => done(null, user));
-//           }
-//         })
-//     }
-//   }
-// };
-
-exports.username = async (req, res, next) => {
-
-  // Read a token from the environment variables
-  const token = process.env.SLACK_TOKEN;
-
-  // Initialize
-  const web = new WebClient(token);
-  // You probably want to use a database to store any user information.
-  let usersStore = {};
-
-  try {
-    // Call the users.list method using the WebClient
-    const user_name = await web.client.users.list();
-    console.log(user_name);
-    saveUsers(user_name.members);
-  }
-  catch (error) {
-    // Check the code property, and when its a PlatformError, log the whole response.
-    if (error.code === ErrorCode.PlatformError) {
-      console.log(error.data);
-    } else {
-      // Some other error, oh no!
-      console.log('Well, that was unexpected.');
-    }
-  }
-  // Put users into the JavaScript object
-  function saveUsers(usersArray) {
-    let userId = '';
-    usersArray.forEach(function(user){
-      // Key user info on their unique user ID
-      userId = user["id"];
-      
-      // Store the entire user object (you may not need all of the info)
-      usersStore[userId] = user;
-    });
-  }
-  res.redirect('/polls');
-}  
