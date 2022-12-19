@@ -7,8 +7,7 @@ exports.new = async (req, res, next) => {
 }
 
 exports.index = async (req, res, next) => {
-    //console.log(req.session.user);
-    const user_infor = req.session.user;
+    const username = req.session.username;
     //Query lay danh sach cac cuoc khao sat
     const polls = await models.Poll.findMany({
         include: {
@@ -36,7 +35,7 @@ exports.index = async (req, res, next) => {
 
     //console.log(req.session);
     //console.log(JSON.stringify(polls));
-    res.render('polls/index', { polls, user_infor});
+    res.render('polls/index', { polls, username});
     
 }
 //creating form

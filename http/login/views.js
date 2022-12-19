@@ -25,34 +25,19 @@ exports.verify = async (req, res, next) => {
     try {
       // Call the users.list method using the WebClient
       const listOfUsers = await web.users.list();
-      const dataUser = listOfUsers.find(userItem => { userItem.profile?.email === gUser.email })
+      console.log(listOfUsers.members);
+      const dataUser = listOfUsers.members.find(item => item.profile.email === gUser.email);
       console.log(dataUser);
       
       currentUser.avatar = dataUser?.profile.image_192;
+      console.log(currentUser.avatar);
       currentUser.name = dataUser?.real_name;
+      console.log(currentUser.name);
       currentUser.slack_id = dataUser?.id;
-
-      // const dataUser = save_listOfUsers.find(userItem => { userItem.profile.email === gUser.email })
-      // console.log(dataUser);
-      
-      // currentUser.avatar = dataUser?.profile.image_192;
-      // currentUser.name = dataUser?.real_name;
-      // currentUser.slack_id = dataUser?.id;
+      console.log(currentUser.slack_id);
     }
     catch (error) {
       console.error(error);
-    }
-    
-    // Put users into the JavaScript object
-    function saveUsers(usersArray) {
-      let userId = '';
-      usersArray.forEach(function(user){
-        // Key user info on their unique user ID
-        userId = user["id"];
-        
-        // Store the entire user object (you may not need all of the info)
-        usersStore[userId] = user;
-      });
     }
 
     const user = await models.User.upsert({
@@ -65,11 +50,14 @@ exports.verify = async (req, res, next) => {
       },
       create: currentUser,
     });
+    console.log(user);
     req.session.regenerate(function (err) {
       if (err) next(err)
   
       // store user information in session, typically a user id
       req.session.user = user.id;
+      req.session.username = user.name;
+
       // save the session before redirection to ensure page
       // load does not happen before session is saved
       req.session.save(function (err) {

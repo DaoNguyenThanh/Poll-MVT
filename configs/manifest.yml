@@ -1,48 +1,21 @@
 display_information:
-  name: Dao-Test-Poll-App
-  description: Ứng dụng tạo các cuộc khảo sát của CO-WELL Asia
-  background_color: "#e8095f"
+  name: WebPollBot
+  description: Manage poll website of CO-WELL
+  background_color: "#6b6304"
 features:
-  app_home:
-    home_tab_enabled: true
-    messages_tab_enabled: true
-    messages_tab_read_only_enabled: false
   bot_user:
-    display_name: CW-Dao-Poll
-    always_online: true
-  shortcuts:
-    - name: Tạo khảo sát
-      type: global
-      callback_id: new_poll
-      description: Create a new poll
+    display_name: WebPollBot
+    always_online: false
 oauth_config:
   scopes:
-     user:
-      - email
-      - identity.email
-      - search:read
+    user:
       - users:read
       - users:read.email
     bot:
-      - channels:history
-      - channels:join
-      - chat:write
-      - chat:write.public
-      - commands
-      - im:history
-      - users.profile:read
       - users:read
       - users:read.email
+      - team:read
 settings:
-  event_subscriptions:
-    request_url: https://c723-118-69-73-136.ap.ngrok.io/slack-bot/slack/events
-    bot_events:
-      - app_home_opened
-      - message.channels
-      - message.im
-  interactivity:
-    is_enabled: true
-    request_url: https://c723-118-69-73-136.ap.ngrok.io/slack-bot/slack/events
   org_deploy_enabled: false
   socket_mode_enabled: false
   token_rotation_enabled: false

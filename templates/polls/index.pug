@@ -5,8 +5,7 @@ block content
     .row
       .col-lg-8.mx-lg-auto
         h1.title-poll POLL LIST
-        h1 User: #{user_infor}
-        h1 Username: #{find_email}
+        h1 Username: #{username}
         .poll-list
           each poll in polls
             fieldset  
@@ -29,6 +28,8 @@ block content
                               | Vote
                         p.vote-count(name='') 
                             = ans._count.users
+                h1 Poll Results with Chart.js
+                
     .cover-btn                   
       a#btn-1(href ='/polls/new') Create new poll
       a#logout-btn(href ='/login/logout') Logout
