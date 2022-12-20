@@ -30,12 +30,24 @@ exports.index = async (req, res, next) => {
                 },
             }
         }
-    })
-
-
+    });
+    // const totalVotes = answers._count.users.reduce((total, n) => total += n, 0 );
+    // console.log(totalVotes);
+    const totalVotes = await models.Result.findUnique({
+        select: {
+            user_id: true
+          },
+        where: {
+            user_id_answer_id: {
+                answer_id:  parseInt(req.body.answer_id),
+                user_id: req.session.user
+            }
+        }
+    });
+    console.log(totalVotes);
     //console.log(req.session);
     //console.log(JSON.stringify(polls));
-    res.render('polls/index', { polls, username});
+    res.render('polls/index', { polls, username, totalVotes});
     
 }
 //creating form

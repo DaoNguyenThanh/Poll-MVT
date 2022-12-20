@@ -67,8 +67,9 @@ function addRow() {
 
 const progress_bar = document.getElementsByClassName("myBar");
 
-progress_bar.addEventListener('click',()=> {
-  document.getElementsByClassName("vote-count") = 0 ;
-  if document.getElementsByClassName("vote-count") > 1
-});
+// progress_bar.addEventListener('click',()=> {
+//   document.getElementsByClassName("vote-count") = 0 ;
+//   if document.getElementsByClassName("vote-count") > 1
+
+// });
 
