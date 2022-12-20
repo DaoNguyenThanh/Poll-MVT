@@ -12,14 +12,17 @@ block content
               .info 
                 legend Tên cuộc khảo sát: #{poll.name}
                 each val in poll.questions
-                  p Câu hỏi: #{val.name}
-                  if(val.type == 1)
-                    p Loại câu hỏi là: Chỉ chọn được một đáp án   
-                  else
-                    p Loại câu hỏi là: Chọn được nhiều đáp án
+                  .questions
+                    p Câu hỏi: #{val.name}
+                    if(val.type == 1)
+                      p Loại câu hỏi là: Chỉ chọn được một đáp án   
+                    else
+                      p Loại câu hỏi là: Chọn được nhiều đáp án
                   each ans in val.answers
-                    div
-                      li= ans.name
+                    .cover-ans
+                      li.answers= ans.name
+                      .myProgress
+                        .myBar 0% 
                       .voting
                         li.vote-btn 
                           form(action=`/polls/${poll.id}/vote` method='POST')
@@ -28,22 +31,9 @@ block content
                               | Vote
                         p.vote-count(name='') 
                             = ans._count.users
-                h1 Poll Results with Chart.js
-                
     .cover-btn                   
       a#btn-1(href ='/polls/new') Create new poll
       a#logout-btn(href ='/login/logout') Logout
-
-  script. 
-    //- console.log(#{poll});
-      //- button#logout-btn Logout
-  
-      //- script(defer type='module').
-      //-   import * as gAuth from '/javascripts/google-login-gsi.js';
-      //-   document.getElementById("#logout-btn").onclick = async (e)=>{
-      //-       e.preventDefault();	            
-      //-       await gAuth.signOut();	           
-      //-   };
 
 
     
