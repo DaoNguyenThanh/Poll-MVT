@@ -12,6 +12,8 @@ block content
               .info 
                 legend Tên cuộc khảo sát: #{poll.name}
                 each val in poll.questions
+                  - const totalVotes= val.answers_count.users.reduce((total, n) => total += n, 0)
+                  p= totalVotes
                   .questions
                     p Câu hỏi: #{val.name}
                     if(val.type == 1)
@@ -22,7 +24,7 @@ block content
                     .cover-ans
                       li.answers= ans.name
                       .myProgress
-                        .myBar 0% 
+                        .myBar 0%
                       .voting
                         li.vote-btn 
                           form(action=`/polls/${poll.id}/vote` method='POST')
