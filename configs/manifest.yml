@@ -1,20 +1,22 @@
 display_information:
-  name: WebPollBot
-  description: Manage poll website of CO-WELL
-  background_color: "#6b6304"
+  name: Next G Bot
+  description: Manager of Poll website
+  background_color: "#274291"
 features:
   bot_user:
-    display_name: WebPollBot
+    display_name: Next G Bot
     always_online: false
 oauth_config:
   scopes:
     user:
-      - users:read
-      - users:read.email
-    bot:
+      - usergroups:read
       - users:read
       - users:read.email
       - team:read
+    bot:
+      - usergroups:read
+      - users:read
+      - users:read.email
 settings:
   org_deploy_enabled: false
   socket_mode_enabled: false

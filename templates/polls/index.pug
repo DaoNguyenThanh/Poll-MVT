@@ -12,7 +12,6 @@ block content
               .info 
                 legend Tên cuộc khảo sát: #{poll.name}
                 each val in poll.questions
-                  - const totalVotes= val.answers_count.users.reduce((total, n) => total += n, 0)
                   p= totalVotes
                   .questions
                     p Câu hỏi: #{val.name}
@@ -23,13 +22,17 @@ block content
                   each ans in val.answers
                     .cover-ans
                       li.answers= ans.name
-                      .myProgress
-                        .myBar 0%
+                      - const totalVotes= ans._count.users
+                        .bar
+                          .myProgress
+                            .progess 
+                              span(class='counter')
+                                | 0%
                       .voting
                         li.vote-btn 
                           form(action=`/polls/${poll.id}/vote` method='POST')
                             input(type='hidden' name='answer_id' value=`${ans.id}`)
-                            button.vote-btn(type='submit' onclick=`${idAnswer}`) 
+                            button.vote-btn(name="vote-act" type='submit' onclick=`${idAnswer}`) 
                               | Vote
                         p.vote-count(name='') 
                             = ans._count.users
@@ -38,4 +41,53 @@ block content
       a#logout-btn(href ='/login/logout') Logout
 
 
+-
+    let item = [
+        {
+            "id": "login",
+            "icon": "fas fa-sign-in-alt",
+        },
+        {
+            "id": "love",
+            "icon": "fas fa-heart",
+        },
+        {
+            "id": "community",
+            "icon": "fas fa-users",
+        },
+        {
+            "id": "photography",
+            "icon": "fas fa-camera",
+        },
+        {
+            "id": "communication",
+            "icon": "fas fa-comment-alt",
+        },
+        {
+            "id": "call",
+            "icon": "fas fa-phone",
+        },
+    ]
+
+#container 
+
+    h2 Achievement-Box
+
+    .content
+
+        each id, i in item
+            .achievement
+                .bar
+                    .img-box
+                        i(class="" + item[i].icon + "")
+                    .progress(class="" + item[i].id + "")
+                    p 
+                        span(class="" + item[i].id + "-counter")
+                            | 0
+                        | /5 
+                        =item[i].id
     
+#button-bar 
+    each achievement, i in ['login', 'love', 'community', 'photography', 'communication', 'call']
+        button(name="" + item[i].id + "" title="click to fill item-achievement bar")
+            i(class="" + item[i].icon + "")
