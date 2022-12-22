@@ -379,51 +379,8 @@ fieldset legend{
   margin-bottom: 10px;
   animation: bump 0.3s;
 }
-.bar {
-  margin-top: 10px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 30px;
-  background-color: rgba(15, 15, 15, 0.05);
-  border-radius: 40px;
-  overflow: hidden;
-  border: 1px solid;
-}
-
-.myProgress {
-  margin: 10px 0px;
-  border: 1px solid #000000;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 100%;
-  background: linear-gradient(30deg, #64a9ff, #93ffa0);
-  border-radius: 20px;
-  transition: 1s ease;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
 .progress {
-  width: 0%;
-  height: 30px;
-  background-color: #04AA6D;
-  text-align: center;
-  line-height: 30px;
-  color: rgb(20, 50, 223);
-  font-weight: bold;
-}
-
-.progress.running {
-  animation-name: fill;
-  animation-delay: 0s;
-  animation-duration: 1s;
-  animation-iteration-count: "infinite";
-  animation-fill-mode: forwards;
+  margin-top: 10px;
 }
 
 /*SIGN IN*/
