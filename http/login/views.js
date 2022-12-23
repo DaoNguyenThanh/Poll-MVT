@@ -56,6 +56,7 @@ exports.verify = async (req, res, next) => {
   
       // store user information in session, typically a user id
       req.session.user = user.id;
+      req.session.avatar = user.avatar;
       req.session.username = user.name;
 
       // save the session before redirection to ensure page

@@ -349,6 +349,7 @@ fieldset legend{
   list-style: hide;
   display: block;
 }
+
 .vote-btn {
   margin-right: 450px;
   list-style: none;
@@ -357,7 +358,7 @@ fieldset legend{
   height: 30px;
   background: #6cc1d6;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 8px;
   font-weight: bold;
 }
 
@@ -379,10 +380,17 @@ fieldset legend{
   margin-bottom: 10px;
   animation: bump 0.3s;
 }
+
 .progress {
   margin-top: 10px;
 }
 
+.avatar {
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
 /*SIGN IN*/
 
 .title-sign {

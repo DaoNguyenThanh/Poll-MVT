@@ -8,36 +8,40 @@ exports.new = async (req, res, next) => {
 
 exports.index = async (req, res, next) => {
     const username = req.session.username;
+    // const avatar = req.session.avatar;
     // const totalVotes = req.session.user;
     //Query lay danh sach cac cuoc khao sat
-    const polls = await models.Poll.findMany({
+    const items = await models.User.findMany({
         include: {
-            questions:{   
+            polls: {
                 select: {
                     id: true,
                     name: true,
-                    type: true, 
-                    answers: {
+                    questions: {   
                         select: {
                             id: true,
                             name: true,
-                            _count: {
+                            type: true, 
+                            answers: {
                                 select: {
-                                    users: true
+                                    id: true,
+                                    name: true,
+                                    _count: {
+                                        select: {
+                                            users: true
+                                        }
+                                    }
                                 }
                             }
-                        }
+                        },
                     }
-                },
-            }
+                }
+            },
         }
     });
-    // const totalVotes = polls.questions.answers._count.users.reduce((total, n) => total += n, 0 );
-    // console.log(totalVotes);
-
     //console.log(req.session);
     //console.log(JSON.stringify(polls));
-    res.render('polls/index', { polls, username});
+    res.render('polls/index', { items, username});
 }
 
 //creating form
@@ -50,7 +54,8 @@ exports.create = async (req, res, next) => {
     }
     await models.Poll.create({
         data: {
-            name: req.body.poll_name,   
+            name: req.body.poll_name,
+            user_id: req.session.user,   
                 questions: { 
                     create: {
                         name:  req.body.question_name,
