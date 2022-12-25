@@ -7,39 +7,36 @@ block content
         h1.title-poll POLL LIST
         h1 Username: #{username}
         .poll-list
-          each item in items
-            each poll in item.polls
-              fieldset  
-                .info 
-                  legend Tên cuộc khảo sát: #{poll.name}
-                  each val in poll.questions
-                    - sum = val.answers.map(el => el._count.users).reduce((a,b) => a+b, 0)
-                    p= totalVotes
-                    .questions
-                      p Câu hỏi: #{val.name}
-                      if(val.type == 1)
-                        p Loại câu hỏi là: Chỉ chọn được một đáp án   
-                      else
-                        p Loại câu hỏi là: Chọn được nhiều đáp án
-                    each ans in val.answers
-                      .cover-ans
-                        li.answers= ans.name
-                        - const totalVotes = ans._count.users
-                        - let percentage = (totalVotes / sum * 100)
-                        .progress
-                          .progress-bar.progress-bar-striped(style=`width: ${percentage}%`)
-                            = (percentage = percentage || 0).toFixed(2) + "%"
-                        .voting
-                          li.vote-btn 
-                            form(action=`/polls/${poll.id}/vote` method='POST')
-                              input(type='hidden' name='answer_id' value=`${ans.id}`)
-                              button.vote-btn(name="vote-act" type='submit' onclick=`${idAnswer}`) 
-                                | Vote
-                          p.vote-count(name='') 
-                              = ans._count.users
-                          //- const all_avatar = item.reduce((element,list) => list.avatar)
-                          //- img.avatar(src= `${all_avatar}` alt='Avatar')
-                    img.avatar(src= `${item.avatar}` alt='Avatar')
+          each poll in polls
+            fieldset  
+              .info 
+                legend Tên cuộc khảo sát: #{poll.name}
+                each val in poll.questions
+                  - sum = val.answers.map(el => el._count.users).reduce((a,b) => a+b, 0)
+                  p= totalVotes
+                  .questions
+                    p Câu hỏi: #{val.name}
+                    if(val.type == 1)
+                      p Loại câu hỏi là: Chỉ chọn được một đáp án   
+                    else
+                      p Loại câu hỏi là: Chọn được nhiều đáp án
+                  each ans in val.answers
+                    .cover-ans
+                      li.answers= ans.name
+                      - const totalVotes = ans._count.users
+                      - let percentage = (totalVotes / sum * 100)
+                      .progress
+                        .progress-bar.progress-bar-striped(style=`width: ${percentage}%`)
+                          = (percentage = percentage || 0).toFixed(2) + "%"
+                      .voting
+                        li.vote-btn 
+                          form(action=`/polls/${poll.id}/vote` method='POST')
+                            input(type='hidden' name='answer_id' value=`${ans.id}`)
+                            button.vote-btn(name="vote-act" type='submit' onclick=`${idAnswer}`) 
+                              | Vote
+                        p.vote-count(name='') 
+                            = ans._count.users
+                   
                
     .cover-btn                   
       a#btn-1(href ='/polls/new') Create new poll

@@ -11,37 +11,81 @@ exports.index = async (req, res, next) => {
     // const avatar = req.session.avatar;
     // const totalVotes = req.session.user;
     //Query lay danh sach cac cuoc khao sat
-    const items = await models.User.findMany({
+    // const items = await models.User.findMany({
+    //     include: {
+    //         polls: {
+    //             select: {
+    //                 id: true,
+    //                 name: true,
+    //                 questions: {   
+    //                     select: {
+    //                         id: true,
+    //                         name: true,
+    //                         type: true, 
+    //                         answers: {
+    //                             select: {
+    //                                 id: true,
+    //                                 name: true,
+    //                                 _count: {
+    //                                     select: {
+    //                                         users: true
+    //                                     }
+    //                                 },
+    //                                 users: {
+    //                                     select: {
+    //                                         id: true,
+    //                                         name: true,
+    //                                         avatar: true
+    //                                     }
+    //                                 }
+    //                             }
+    //                         }
+    //                     },
+    //                 }
+    //             }
+    //         },
+    //     }
+    // });
+    const polls = await models.Poll.findMany({
         include: {
-            polls: {
+            questions:{   
                 select: {
                     id: true,
                     name: true,
-                    questions: {   
+                    type: true, 
+                    answers: {
                         select: {
                             id: true,
                             name: true,
-                            type: true, 
-                            answers: {
+                            _count: {
                                 select: {
-                                    id: true,
-                                    name: true,
-                                    _count: {
+                                    users: true
+                                },
+                            },
+                            users: {
+                                include: {
+                                    user: {
                                         select: {
-                                            users: true
+                                            avatar: true
                                         }
                                     }
                                 }
                             }
                         },
                     }
-                }
-            },
+                },
+            }
         }
-    });
+    })
     //console.log(req.session);
     //console.log(JSON.stringify(polls));
-    res.render('polls/index', { items, username});
+
+    // const avatar = items.reduce((accumulator, currentvalue) => {
+    //     accumulator.push(currentvalue.avatar);
+    //     return accumulator;
+    // }, []);
+    // console.log(avatar);
+    res.render('polls/index', { polls, username});
 }
 
 //creating form
