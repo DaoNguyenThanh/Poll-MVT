@@ -32,10 +32,40 @@ function addRow() {
     //-   console.log('else')
     //-   return alert('Bạn không được xóa nữa');
   };
-  // var form = document.getElementById("submit-btn");
+  
+  const signUpButton = document.getElementById('signUp');
+  const signInButton = document.getElementById('signIn');
+  const container = document.getElementById('container');
+  
+  signUpButton.addEventListener('click', () => {
+    container.classList.add("right-panel-active");
+  });
+  
+  signInButton.addEventListener('click', () => {
+    container.classList.remove("right-panel-active");
+  });
+//progress bar
+// var i = 0;
+// function move() {
+//   if (i == 0) {
+//     i = 1;
+//     var elem = document.getElementById("myBar");
+//     var width = 10;
+//     var id = setInterval(frame, 10);
+//     function frame() {
+//       if (width >= 100) {
+//         clearInterval(id);
+//         i = 0;
+//       } else {
+//         width++;
+//         elem.style.width = width + "%";
+//         elem.innerHTML = width  + "%";
+//       }
+//     }
+//   }
+// }
 
-  // document.getElementById("survey-form");
-  // form?.addEventListener("click", () => {
-    
-  //   document.getElementById("display1").innerHTML = form.value;
-  // });
+// const progress_bar = document.getElementsByClassName("myBar");
+
+let progress = document.querySelector(".vote-btn");
+

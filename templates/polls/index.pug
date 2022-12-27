@@ -1,43 +1,69 @@
 extends ../layout
 
 block content
-  main
-    header
-      img(src="https://co-well.vn/wp-content/themes/cowell/assets/img/logo.jpg", alt="" width="420", height="180")
-      h1#title Form Khảo Sát
-      p#description Cảm Ơn Bạn Đã Tham Gia Tạo Form Khảo Sát
-    
-    form#survey-form(action='/polls' method='POST')
-    
-      .form-group
-        label#name-label(for='name') Tên cuộc khảo sát
-        input#name(type='text' name='poll_name' placeholder='Nhập tên cuộc khảo sát' required='')
+  .container
+    .row
+      .col-lg-8.mx-lg-auto
+        h1.title-poll POLL LIST
+        h1 Username: #{username}
+        .poll-list
+          each poll in polls
+            fieldset  
+              .info 
+                legend Tên cuộc khảo sát: #{poll.name}
+                each val in poll.questions
+                  - sum = val.answers.map(el => el._count.users).reduce((a,b) => a+b, 0)
+                  p= totalVotes
+                  .questions
+                    p Câu hỏi: #{val.name}
+                    if(val.type == 1)
+                      p Loại câu hỏi là: Chỉ chọn được một đáp án   
+                    else
+                      p Loại câu hỏi là: Chọn được nhiều đáp án
+                  each ans in val.answers
+                    .cover-ans
+                      li.answers= ans.name
+                      - const totalVotes = ans._count.users
+                      - let percentage = (totalVotes / sum * 100)
+                      .progress
+                        .progress-bar.progress-bar-striped(style=`width: ${percentage}%`)
+                          = (percentage = percentage || 0).toFixed(2) + "%"
+                      .voting
+                        li.vote-btn 
+                          form(action=`/polls/${poll.id}/vote` method='POST')
+                            input(type='hidden' name='answer_id' value=`${ans.id}`)
+                            button.vote-btn(name="vote-act" type='submit' onclick=`${idAnswer}`) 
+                              | Vote
+                        .cover-vote-count
+                          - let totalvotes = ans._count.users
+                          p.vote-count(name='')
+                              = totalvotes
+                        .cover-all-img
+                          - for (var img = 0; img < ans.users.length && img < 1; ++img)
+                            .cover-avatar
+                              img.avatar(src= `${ans.users[img].user.avatar}` alt='Avatar')
+                          if(totalvotes == 0)
+                            .hidden
+                          else
+                            .show
+                              // Button trigger modal
+                              button.modal-btn(name="vote-act" type='button' data-toggle='modal' data-target='#exampleModalCenter') 
+                                | more
+                          // Modal
+                          #exampleModalCenter.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true')
+                            .modal-dialog.modal-dialog-centered(role='document')
+                              .modal-content
+                                .modal-header
+                                  h5#exampleModalLongTitle.modal-title Modal title
+                                  button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                    span(aria-hidden='true') &times;
+                                .modal-body
+                                  each avatar_user in ans.users 
+                                    .cover-avatar
+                                      img.avatar(src= `${avatar_user.user.avatar}` alt='Avatar')
+                                .modal-footer
+                                  button.btn.btn-secondary(type='button' data-dismiss='modal') Close   
+    .cover-btn                   
+      a#btn-1(href ='/polls/new') Create new poll
+      a#logout-btn(href ='/login/logout') Logout
       
-      .form-group
-        label#email-label(for='Câu hỏi') Câu hỏi
-        input#email(type='text' name='question_name' placeholder='Nhập câu hỏi' required='')
-      
-      .form-group
-        label(for='question_type') Loại Câu Hỏi
-        select#dropdown(name='question_type')
-          option(value='1') Chọn 1 đáp án
-          option(value='2') Chọn nhiều đáp án
-          
-      .form-group
-        .options
-          label(for='answer_name') Lựa Chọn
-          br
-          input#many-options.form-control.m-input(type='text' required='' name='answer_name')
-          .row.mx-auto 
-            .col-lg-6.mt-3 
-              .all-btn
-                button#DeleteRow.btn.btn-danger.float-left(type='button' onclick='deleteRow(this)')
-                  i.bi.bi-trash
-                  | Delete
-            .col-lg-6.mt-3
-              .all-btn
-                button#rowAdder.btn.btn-dark.float-right(type='button' onclick='addRow()')
-                  span.bi.bi-plus-square-dotted
-                  |  ADD
-      .form-group
-        button#submit(type='submit-btn') Submit

@@ -1,0 +1,23 @@
+display_information:
+  name: Next G Bot
+  description: Manager of Poll website
+  background_color: "#274291"
+features:
+  bot_user:
+    display_name: Next G Bot
+    always_online: false
+oauth_config:
+  scopes:
+    user:
+      - usergroups:read
+      - users:read
+      - users:read.email
+      - team:read
+    bot:
+      - usergroups:read
+      - users:read
+      - users:read.email
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

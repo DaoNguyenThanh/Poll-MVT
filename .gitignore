@@ -1,3 +1,12 @@
 node_modules
 dist
 .env
+
+module.exports = {
+  googleClientID: '820849889489-2l62hgnerhtneg65uuq6lbkehhfgbhg2.apps.googleusercontent.com',
+  googleClientSecret: 'oiaSW7ok5pKyIGNz9_7TsLCi'
+};
+
+Your Client ID:914176792303-u3clb1ifv24n369jots7ko0lnmjbrh2g.apps.googleusercontent.com
+
+Client secret: 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
