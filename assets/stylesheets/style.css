@@ -407,9 +407,15 @@ fieldset legend{
   text-decoration: none;
   float: right;
 }
-.prespace {
-  display: none;
+
+.hidden {
+  visibility: hidden;
 }
+
+.show {
+  visibility: visible;
+}
+
 .modal-btn {
   list-style: none;
   display: flex;
