@@ -35,13 +35,34 @@ block content
                             button.vote-btn(name="vote-act" type='submit' onclick=`${idAnswer}`) 
                               | Vote
                         .cover-vote-count
-                          p.vote-count(name='') 
+                          p.vote-count(name='')
                               = ans._count.users
-                        .cover-all-img    
-                          each img in ans.users 
+                        .cover-all-img
+                          - for (var img = 0; img < ans.users.length && img < 1; ++img)
                             .cover-avatar
-                              img.avatar(src= `${img.user.avatar}` alt='Avatar')
-               
+                              img.avatar(src= `${ans.users[img].user.avatar}` alt='Avatar')
+                        //- if ans._count.user = 0
+                        //-   .prespace
+                        //- else
+                        // Button trigger modal
+                        button.modal-btn(name="vote-act" type='button' data-toggle='modal' data-target='#exampleModalCenter') 
+                          | more
+                        // Modal
+                        #exampleModalCenter.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true')
+                          .modal-dialog.modal-dialog-centered(role='document')
+                            .modal-content
+                              .modal-header
+                                h5#exampleModalLongTitle.modal-title Modal title
+                                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                  span(aria-hidden='true') &times;
+                              .modal-body
+                                each avatar_user in ans.users 
+                                  .cover-avatar
+                                    img.avatar(src= `${avatar_user.user.avatar}` alt='Avatar')
+                              .modal-footer
+                                button.btn.btn-secondary(type='button' data-dismiss='modal') Close   
+                          
+        
     .cover-btn                   
       a#btn-1(href ='/polls/new') Create new poll
       a#logout-btn(href ='/login/logout') Logout

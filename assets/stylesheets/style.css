@@ -200,13 +200,11 @@ textarea {
 }
 
 button {
-  width: 100%;
   display: block;
-  height: 40px;
   background-color: #0ddd5d;;
   border: none;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 26px;
   color: white;
   box-sizing: border-box;
 }
@@ -371,14 +369,19 @@ fieldset legend{
 
 .progress {
   margin-top: 15px;
+ 
 }
-
+.progress-bar{
+  color: #000000!important;
+  font-size: larger;
+  font-weight:bold ;
+}
 .cover-all-img {
   display: flex;
   margin-bottom: 10px;
 }
 .cover-avatar {
-  display: block;
+  display: flex;
 }
 .avatar {
   vertical-align: middle;
@@ -404,7 +407,20 @@ fieldset legend{
   text-decoration: none;
   float: right;
 }
-
+.prespace {
+  display: none;
+}
+.modal-btn {
+  list-style: none;
+  display: flex;
+  width: 60px;
+  height: 30px;
+  background: #6cc1d6;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: 0px 5px;
+}
 /*SIGN IN*/
 .title-sign {
 	font-weight: bold;
