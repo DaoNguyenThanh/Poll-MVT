@@ -66,6 +66,8 @@ exports.index = async (req, res, next) => {
                                 include: {
                                     user: {
                                         select: {
+                                            id: true,
+                                            name: true,
                                             avatar: true
                                         }
                                     }

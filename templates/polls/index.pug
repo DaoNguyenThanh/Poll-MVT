@@ -1,18 +1,23 @@
 extends ../layout
 
-block content
+block content 
   .container
+    .row
+      .col-lg-12.mr-lg-auto
+        h5.icon-username
+          span
+            i.fa.fa-user(aria-hidden='true')
+            | #{username}
     .row
       .col-lg-8.mx-lg-auto
         h1.title-poll POLL LIST
-        h1 Username: #{username}
         .poll-list
           each poll in polls
             fieldset  
               .info 
                 legend Tên cuộc khảo sát: #{poll.name}
                 each val in poll.questions
-                  - sum = val.answers.map(el => el._count.users).reduce((a,b) => a+b, 0)
+                  - sum = val.answers.map(el => el._count.users).reduce((a, b) => a + b, 0)
                   p= totalVotes
                   .questions
                     p Câu hỏi: #{val.name}
@@ -37,33 +42,33 @@ block content
                         .cover-vote-count
                           - let totalvotes = ans._count.users
                           p.vote-count(name='')
-                              = totalvotes
+                            = totalvotes
                         .cover-all-img
                           - for (var img = 0; img < ans.users.length && img < 1; ++img)
                             .cover-avatar
                               img.avatar(src= `${ans.users[img].user.avatar}` alt='Avatar')
-                          if(totalvotes == 0)
-                            .hidden
-                          else
-                            .show
-                              // Button trigger modal
-                              button.modal-btn(name="vote-act" type='button' data-toggle='modal' data-target='#exampleModalCenter') 
-                                | more
-                          // Modal
-                          #exampleModalCenter.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true')
-                            .modal-dialog.modal-dialog-centered(role='document')
-                              .modal-content
-                                .modal-header
-                                  h5#exampleModalLongTitle.modal-title Modal title
-                                  button.close(type='button' data-dismiss='modal' aria-label='Close')
-                                    span(aria-hidden='true') &times;
-                                .modal-body
-                                  each avatar_user in ans.users 
-                                    .cover-avatar
-                                      img.avatar(src= `${avatar_user.user.avatar}` alt='Avatar')
-                                .modal-footer
-                                  button.btn.btn-secondary(type='button' data-dismiss='modal') Close   
+                        if(totalvotes == 0 || totalvotes == 1)
+                          .hidden
+                        else
+                          .show
+                            // Button trigger modal
+                            button.modal-btn(name="vote-act" type='button' data-toggle='modal' data-target= `#${ans.id}`) 
+                              | more
+                            // Modal
+                            div(id=`${ans.id}`).modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true')
+                              .modal-dialog.modal-dialog-centered(role='document')
+                                .modal-content
+                                  .modal-header
+                                    h5#exampleModalLongTitle.modal-title Những người bình chọn: 
+                                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                      span(aria-hidden='true') &times;
+                                  .modal-body
+                                    each item in ans.users
+                                      .cover-avatar
+                                        img.avatar(src= `${item.user.avatar}` alt='Avatar')
+                                        p= item.user.name
+                                  .modal-footer
+                                    button.btn.btn-secondary(type='button' data-dismiss='modal') Close   
     .cover-btn                   
       a#btn-1(href ='/polls/new') Create new poll
       a#logout-btn(href ='/login/logout') Logout
-      
