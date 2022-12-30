@@ -9,66 +9,74 @@ block content
             i.fa.fa-user(aria-hidden='true')
             | #{username}
     .row
+      .col-lg-8.mx-lg-auto 
+        img.logo-img-poll-list(src="https://co-well.vn/wp-content/uploads/2019/08/co-well-asia-logo.jpg", alt="")
+    .row
       .col-lg-8.mx-lg-auto
         h1.title-poll POLL LIST
-        .poll-list
-          each poll in polls
-            fieldset  
-              .info 
-                legend Tên cuộc khảo sát: #{poll.name}
-                each val in poll.questions
-                  - sum = val.answers.map(el => el._count.users).reduce((a, b) => a + b, 0)
-                  p= totalVotes
-                  .questions
-                    p Câu hỏi: #{val.name}
-                    if(val.type == 1)
-                      p Loại câu hỏi là: Chỉ chọn được một đáp án   
-                    else
-                      p Loại câu hỏi là: Chọn được nhiều đáp án
-                  each ans in val.answers
-                    .cover-ans
-                      li.answers= ans.name
-                      - const totalVotes = ans._count.users
-                      - let percentage = (totalVotes / sum * 100)
-                      .progress
-                        .progress-bar.progress-bar-striped(style=`width: ${percentage}%`)
-                          = (percentage = percentage || 0).toFixed(2) + "%"
-                      .voting
-                        li.vote-btn 
-                          form(action=`/polls/${poll.id}/vote` method='POST')
-                            input(type='hidden' name='answer_id' value=`${ans.id}`)
-                            button.vote-btn(name="vote-act" type='submit' onclick=`${idAnswer}`) 
-                              | Vote
-                        .cover-vote-count
-                          - let totalvotes = ans._count.users
-                          p.vote-count(name='')
-                            = totalvotes
-                        .cover-all-img
-                          - for (var img = 0; img < ans.users.length && img < 1; ++img)
-                            .cover-avatar
-                              img.avatar(src= `${ans.users[img].user.avatar}` alt='Avatar')
-                        if(totalvotes == 0 || totalvotes == 1)
-                          .hidden
+        if (polls.length == 0)
+          fieldset.empty-poll
+            legend 
+              h1 Chưa có Poll nào được tạo
+        else
+          .poll-list
+            each poll in polls
+              fieldset.present-poll  
+                .info        
+                    legend Tên cuộc khảo sát: #{poll.name}
+                    each val in poll.questions
+                      - sum = val.answers.map(el => el._count.users).reduce((a, b) => a + b, 0)
+                      p= totalVotes
+                      .questions
+                        p Câu hỏi: #{val.name}
+                        if(val.type == 1)
+                          p Loại câu hỏi là: Chỉ chọn được một đáp án   
                         else
-                          .show
-                            // Button trigger modal
-                            button.modal-btn(name="vote-act" type='button' data-toggle='modal' data-target= `#${ans.id}`) 
-                              | more
-                            // Modal
-                            div(id=`${ans.id}`).modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true')
-                              .modal-dialog.modal-dialog-centered(role='document')
-                                .modal-content
-                                  .modal-header
-                                    h5#exampleModalLongTitle.modal-title Những người bình chọn: 
-                                    button.close(type='button' data-dismiss='modal' aria-label='Close')
-                                      span(aria-hidden='true') &times;
-                                  .modal-body
-                                    each item in ans.users
-                                      .cover-avatar
-                                        img.avatar(src= `${item.user.avatar}` alt='Avatar')
-                                        p= item.user.name
-                                  .modal-footer
-                                    button.btn.btn-secondary(type='button' data-dismiss='modal') Close   
+                          p Loại câu hỏi là: Chọn được nhiều đáp án
+                      each ans in val.answers
+                        .cover-ans
+                          li.answers= ans.name
+                          - const totalVotes = ans._count.users
+                          - let percentage = (totalVotes / sum * 100)
+                          .progress
+                            .progress-bar.progress-bar-striped(style=`width: ${percentage}%`)
+                              = (percentage = percentage || 0).toFixed(2) + "%"
+                          .voting
+                            li.vote-btn 
+                              form(action=`/polls/${poll.id}/vote` method='POST')
+                                input(type='hidden' name='answer_id' value=`${ans.id}`)
+                                button.vote-btn(name="vote-act" type='submit' onclick=`${idAnswer}`) 
+                                  | Vote
+                            .cover-vote-count
+                              - let totalvotes = ans._count.users
+                              p.vote-count(name='')
+                                = totalvotes
+                            .cover-all-img
+                              - for (var img = 0; img < ans.users.length && img < 1; ++img)
+                                .cover-avatar
+                                  img.avatar(src= `${ans.users[img].user.avatar}` alt='Avatar')
+                            if(totalvotes == 0 || totalvotes == 1)
+                              .hidden
+                            else
+                              .show
+                                // Button trigger modal
+                                button.modal-btn(name="vote-act" type='button' data-toggle='modal' data-target= `#${ans.id}`) 
+                                  | more
+                                // Modal
+                                div(id=`${ans.id}`).modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true')
+                                  .modal-dialog.modal-dialog-centered(role='document')
+                                    .modal-content
+                                      .modal-header
+                                        h5#exampleModalLongTitle.modal-title Những người bình chọn: 
+                                        button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                          span(aria-hidden='true') &times;
+                                      .modal-body
+                                        each item in ans.users
+                                          .cover-avatar
+                                            img.avatar(src= `${item.user.avatar}` alt='Avatar')
+                                            p= item.user.name
+                                      .modal-footer
+                                        button.btn.btn-secondary(type='button' data-dismiss='modal') Close   
     .cover-btn                   
       a#btn-1(href ='/polls/new') Create new poll
       a#logout-btn(href ='/login/logout') Logout
