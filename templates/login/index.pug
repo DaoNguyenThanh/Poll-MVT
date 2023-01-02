@@ -8,9 +8,9 @@ block content
         .form-container.sign-in-container
             form.form-sign(action='#')
                 .title-login-cover 
-                    h1.title-login Login only with Google
+                    h1.title-login Only login with Google
                         .google-login-btn-cover
-                            button.google-login
+                            button#google-login
                                 i.fab.fa-google-plus-g
                 
     form(action=`/login` method='POST')
@@ -19,7 +19,7 @@ block content
                 
     script(defer type='module').
         import * as gAuth from '/javascripts/google-login-gsi.js';
-        document.getElementById("login").onclick = async (e)=>{
+        document.getElementById("google-login").onclick = async (e)=>{
             e.preventDefault();
             const response = await gAuth.signIn({
                 client_id: '914176792303-u3clb1ifv24n369jots7ko0lnmjbrh2g.apps.googleusercontent.com',
