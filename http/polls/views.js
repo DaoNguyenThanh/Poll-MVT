@@ -11,41 +11,6 @@ exports.index = async (req, res, next) => {
     // const avatar = req.session.avatar;
     // const totalVotes = req.session.user;
     //Query lay danh sach cac cuoc khao sat
-    // const items = await models.User.findMany({
-    //     include: {
-    //         polls: {
-    //             select: {
-    //                 id: true,
-    //                 name: true,
-    //                 questions: {   
-    //                     select: {
-    //                         id: true,
-    //                         name: true,
-    //                         type: true, 
-    //                         answers: {
-    //                             select: {
-    //                                 id: true,
-    //                                 name: true,
-    //                                 _count: {
-    //                                     select: {
-    //                                         users: true
-    //                                     }
-    //                                 },
-    //                                 users: {
-    //                                     select: {
-    //                                         id: true,
-    //                                         name: true,
-    //                                         avatar: true
-    //                                     }
-    //                                 }
-    //                             }
-    //                         }
-    //                     },
-    //                 }
-    //             }
-    //         },
-    //     }
-    // });
     const polls = await models.Poll.findMany({
         include: {
             questions:{   
@@ -79,14 +44,7 @@ exports.index = async (req, res, next) => {
             }
         }
     })
-    //console.log(req.session);
-    //console.log(JSON.stringify(polls));
 
-    // const avatar = items.reduce((accumulator, currentvalue) => {
-    //     accumulator.push(currentvalue.avatar);
-    //     return accumulator;
-    // }, []);
-    // console.log(avatar);
     res.render('polls/index', { polls, username});
 }
 

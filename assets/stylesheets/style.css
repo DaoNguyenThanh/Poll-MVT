@@ -65,10 +65,6 @@ select {
   padding: 7px;
 }
 
-textarea {
-  display: block;
-}
-
 .form-group {
   padding: 8px 0;
   margin-bottom: 2px;
@@ -133,32 +129,6 @@ textarea {
   transition: all 0.4s;
 }
 
-/* custom checkmark made using only css*/
-
-/* 
-[type="checkbox"]+label::after {
-  content: '';
-  min-width: 0px;
-  min-height: 0px;
-  position: absolute;
-  left: -20px;
-  top: 2px;
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  background-color:red; 
-  transform: rotateZ(40deg);
-  transition:  all 0.4s;
-
-}  
-*/
-
-/* this will unhide the custom checkmark */
-
-/* [type="checkbox"]:checked +label::after {
-  min-width: 5px;
-  min-height: 10px;
-} */
-
 /* this is the svg for the checkmark */
 
 [type="checkbox"]+label svg {
@@ -191,15 +161,6 @@ textarea {
   stroke-dashoffset: 0;
 }
 
-textarea {
-  width: 100%;
-  box-sizing: border-box;
-  height: 200px;
-  resize: none;
-  padding: 4px;
-  font-size: 16px;
-}
-
 button {
   display: block;
   background-color: #0ddd5d;;
@@ -216,6 +177,28 @@ button {
   margin-top: -10px;
 }
 
+.all-btn{
+  width: 100%;
+  display: block;
+  height: auto;
+  border: none;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  box-sizing: border-box;
+}
+#back-poll {
+  width: 200px;
+  height: 50px;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  line-height: 25px;
+  text-decoration: none;
+}
 /* custom circle for radio button*/
 [type="radio"]+label::before {
   content: '';
@@ -251,7 +234,7 @@ button {
   form {
       font-size: 18px;
   }
-  #name, #email, #number, #dropdown, textarea {
+  #name, #email, #number, #dropdown {
       font-size: 15px;
   }
   [type="radio"]+label, [type="checkbox"]+label>span {
@@ -288,10 +271,6 @@ button {
   padding: 20px 0px;
 }
 
-.icon-username {
-  text-align: right;
-}
-
 .empty-poll {
   display:flex;
   flex-direction:column;
@@ -306,10 +285,10 @@ button {
   margin: 15px 0px;
   text-align: center;
 }
+
 .empty-poll legend {
   background:rgb(0, 0, 0);
   padding:0px 20px;
-  border: 3px solid rgb(255, 255, 0);
   border-radius:10px;
   color:#fff;
   font-weight:bold;
@@ -332,13 +311,12 @@ button {
 .present-poll legend{
   background:rgb(0, 0, 0);
   padding:0px 20px;
-  border: 3px solid rgb(255, 255, 0);
   border-radius:10px;
   color:#fff;
   font-weight:bold;
 }
 
-.info{
+.info {
   flex-direction:row;
   align-items:flex-start;
   justify-content:flex-start;
@@ -368,6 +346,7 @@ button {
   margin: 16px 16px;
   background: #fff;
 }
+
 .answers {
   list-style: hide;
   display: block;
@@ -434,20 +413,6 @@ button {
   display: block;
 }
 
-#btn-1 {
-  width: 200px;
-  height: 50px;
-  background: #4E9CAF;
-  padding: 10px;
-  text-align: center;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  line-height: 25px;
-  text-decoration: none;
-  float: right;
-}
-
 .hidden {
   visibility: hidden;
 }
@@ -482,6 +447,19 @@ button {
   float: left;
 }
 
+#btn-1 {
+  width: 200px;
+  height: 50px;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  line-height: 25px;
+  text-decoration: none;
+  float: right;
+}
 /*SIGN IN WITH GOOGLE PAGE*/
 h2 {
 	text-align: center;
@@ -505,6 +483,7 @@ a {
 	text-decoration: none;
 	margin: 15px 0;
 }
+
 .form-container {
   position: absolute;
   top: 0;
@@ -516,8 +495,7 @@ a {
   left: 0;
   width: 100%;
   z-index: 2;
-  height: 100%;
-   
+  height: 100%; 
 }
 
 .form-sign {
@@ -525,34 +503,45 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   flex-direction: column;
   padding: 0 50px;
   height: 100%;
-  text-align: center;
 }
-
-.title-login-cover  {
+.content-all {
   width: 600px;
   height: 600px;
   position: relative;
   border-radius: 50%;
-  background-color: #cac7c7;
+  background-color: #203532;
   top: -25px;
+}
+
+.title-login-cover  {
+  margin: 80px 130px 30px 130px;
 }
 
 .title-login {
 	font-weight: bold;
-	margin: 0;
+	margin: 0px;
+  color: #0ddd5d;
 }
 
 .google-login-btn-cover {
-
+  margin: 30px 130px 30px 130px;
+  position: relative;
+  
 }
 
- 
-
- 
-
-
-
+#google-login {
+  text-align: center;
+  margin: 0px;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  position: absolute;
+  background-color: #fff;
+  color: #000000;
+  width: 50px;
+  height: 50px;
+}
 /* POLL */

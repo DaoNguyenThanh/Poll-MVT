@@ -5,19 +5,17 @@ function addRow() {
         <label for="answer_name">Lựa Chọn</label><br/>
         <input class="form-control m-input" id="many-options" type="text" required="" name="answer_name"/>
         <div class="row mx-auto"> 
-          <div class="col-lg-6 mt-3"> 
+          <div class="col-lg-12 mt-3"> 
             <div class="all-btn">
               <button class="btn btn-danger float-left" id="DeleteRow" type="button" onclick="deleteRow(this)"><i class="bi bi-trash"></i>Delete</button>
             </div>
-          </div>
-          <div class="col-lg-6 mt-3">
             <div class="all-btn">
-              <button class="btn btn-dark float-right" id="rowAdder" type="button" onclick="addRow()"><span class="bi bi-plus-square-dotted"></span> ADD</button>
-            </div>
+              <button class="btn btn-dark float-right" id="rowAdder" type="button" onclick="addRow()"><span class="bi bi-plus-square-dotted"></span>ADD</button>
           </div>
         </div>
       </div>
-    </div>`;
+    </div>
+  </div>`;
     document.querySelector('.options').closest(".form-group").insertAdjacentHTML("beforeend",newRowAdd);
   };
   
@@ -33,39 +31,4 @@ function addRow() {
     //-   return alert('Bạn không được xóa nữa');
   };
   
-  const signUpButton = document.getElementById('signUp');
-  const signInButton = document.getElementById('signIn');
-  const container = document.getElementById('container');
-  
-  signUpButton.addEventListener('click', () => {
-    container.classList.add("right-panel-active");
-  });
-  
-  signInButton.addEventListener('click', () => {
-    container.classList.remove("right-panel-active");
-  });
-//progress bar
-// var i = 0;
-// function move() {
-//   if (i == 0) {
-//     i = 1;
-//     var elem = document.getElementById("myBar");
-//     var width = 10;
-//     var id = setInterval(frame, 10);
-//     function frame() {
-//       if (width >= 100) {
-//         clearInterval(id);
-//         i = 0;
-//       } else {
-//         width++;
-//         elem.style.width = width + "%";
-//         elem.innerHTML = width  + "%";
-//       }
-//     }
-//   }
-// }
-
-// const progress_bar = document.getElementsByClassName("myBar");
-
-let progress = document.querySelector(".vote-btn");
 

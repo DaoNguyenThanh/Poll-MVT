@@ -29,15 +29,16 @@ block content
           br
           input#many-options.form-control.m-input(type='text' required='' name='answer_name')
           .row.mx-auto 
-            .col-lg-6.mt-3 
+            .col-lg-12.mt-3 
               .all-btn
                 button#DeleteRow.btn.btn-danger.float-left(type='button' onclick='deleteRow(this)')
                   i.bi.bi-trash
                   | Delete
-            .col-lg-6.mt-3
               .all-btn
                 button#rowAdder.btn.btn-dark.float-right(type='button' onclick='addRow()')
                   span.bi.bi-plus-square-dotted
-                  |  ADD
+                  | ADD
       .form-group
-        button#submit(type='submit-btn') Submit
+        button#submit.all-btn(type='submit-btn') Submit
+      .row.mx-auto
+        a#back-poll(href ='/polls') Back to POLL LIST

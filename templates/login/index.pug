@@ -7,11 +7,13 @@ block content
     #container.container
         .form-container.sign-in-container
             form.form-sign(action='#')
-                .title-login-cover 
-                    h1.title-login Only login with Google
-                        .google-login-btn-cover
-                            button#google-login
-                                i.fab.fa-google-plus-g
+                .content-all
+                    .title-login-cover 
+                        h1.title-login Only login with Google
+                    .google-login-btn-cover
+                        img.logo-img-poll-list(src="https://co-well.vn/wp-content/uploads/2019/08/co-well-asia-logo.jpg", alt="")
+                        button#google-login
+                            i.fab.fa-google-plus-g
                 
     form(action=`/login` method='POST')
         input#login_inp(type='hidden' name='token')
